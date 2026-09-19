@@ -1,13 +1,12 @@
-﻿/*******************************************************************
+/*******************************************************************
 * Copyright         : 2024 saaawdust
 * File Name         : types.ts
 * Description       : Types
-*                    
-* Revision History  :
-* Date		Author 			Comments
-* ------------------------------------------------------------------
-* 13/09/2024	saaawdust	Created file, setup environment
 *
+* Revision History  :
+* Date        Author          Comments
+* ------------------------------------------------------------------
+* 10/12/2025  NeuronPulse     Modified
 /******************************************************************/
 
 export enum BlockOpCode {
@@ -120,6 +119,7 @@ export enum BlockOpCode {
     OperatorLength = "operator_length",
     OperatorContains = "operator_contains",
     OperatorMod = "operator_mod",
+    OperatorPower = "operator_power",
     OperatorRound = "operator_round",
     OperatorMathOp = "operator_mathop",
 
@@ -146,6 +146,7 @@ export enum BlockOpCode {
     ArgumentReporterBoolean = "argument_reporter_boolean",
     ArgumentReporterStringNumber = "argument_reporter_string_number",
     ProceduresCall = "procedures_call",
+    ProceduresReturn = "procedures_return",
 
     // Extensions
     MusicPlayDrumForBeats = "music_playDrumForBeats",
@@ -365,6 +366,8 @@ export interface buildData {
     isAsync?: boolean,
     isFunction?: boolean,
     functionName?: string,
+    listIndexBase?: number,
+    customBlockReturn?: boolean,
 }
 
 export interface generatedData {
