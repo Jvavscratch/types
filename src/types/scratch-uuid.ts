@@ -13,12 +13,15 @@
 import { randomInt } from "crypto";
 
 /**
- * 生成定长随机串。
+ * Generates a fixed-length random string.
  *
- * 注意用的是 `crypto.randomInt` 而**不是** `Math.random()`:块 ID 直接写进
- * 用户产出的 `.sb3`,必须保证唯一。V8 的 `Math.random()` 内部状态可由少量
- * 输出反推,并发构建或长跑时还可能碰撞,而碰撞的后果是两个块 ID 相同、
- * project.json 损坏。`randomInt(n)` 在 [0, n) 上均匀且无取模偏置。
+ * Note that this uses `crypto.randomInt` and **not** `Math.random()`: block IDs
+ * go straight into the `.sb3` a user produces, so they have to be unique. The
+ * internal state of V8's `Math.random()` can be recovered from a handful of
+ * outputs, and it can also collide across concurrent builds or long-running
+ * processes -- and a collision means two blocks end up sharing an ID and
+ * project.json is corrupted. `randomInt(n)` is uniform over [0, n) and free of
+ * modulo bias.
  */
 export function uuid(Include: String, Length = 32) {
     let result = '';
@@ -33,9 +36,12 @@ export function uuid(Include: String, Length = 32) {
 export const includes = {
     scratch_alphanumeric: "0123456789abcdef",
     alphanumeric: "0123456789abcdefghijklmnopqrstuvwxyz",
-    // 注意:这一串里第 37 个字符是 U+62E2「拢」,不是 ASCII —— 显然某次编码
-    // 转换损坏了原始字符,但**无法确定原意**(可能是 `~`、`|` 或反引号附近的
-    // 某符号),而它已被 motion.ts / sensing.ts 用来生成 Scratch 变量名,贸然
-    // 替换会改变这些名字。故原样保留,U+62E2 本身在 Scratch 里合法。
+    // Note: the 37th character of this string is U+62E2, not ASCII -- some
+    // encoding conversion clearly mangled the original character, but **what it
+    // was meant to be cannot be determined** (it may have been `~`, `|`, or some
+    // symbol near the backtick). It is already used by motion.ts / sensing.ts to
+    // generate Scratch variable names, so replacing it would silently change
+    // those names. It is therefore kept exactly as it is; U+62E2 is itself a
+    // legal character in Scratch.
     alphanumeric_with_symbols: "0123456789abcdefghijklmnopqrstuvwxyz`!拢$%^&*()_+"
 }

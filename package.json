@@ -1,7 +1,7 @@
 {
   "name": "@jvavscratch/types",
   "version": "1.0.1",
-  "description": "Jvavscratch 共享类型与基础工具：Scratch 操作码枚举、工程结构、随机 ID、类型映射",
+  "description": "Shared types and primitives for jvavscratch: Scratch opcode enum, project structures, random IDs, and type mapping",
   "license": "MPL-2.0",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
